@@ -5,8 +5,9 @@
 # Setup: Add to /etc/sudoers with visudo:
 # yourusername ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/power_supply/BAT0/charge_control_end_threshold
 # Create service that reads the file and sets remembered value
+# Must have ownership and only read perms for .bat-limit in /etc
 
-MY_THRESHOLD_FILE="/home/vladej/Documents/.bat-limit"
+MY_THRESHOLD_FILE="/etc/bat-limit"
 KERNEL_THRESHOLD_FILE="/sys/class/power_supply/BAT0/charge_control_end_threshold"
 NOTIF_ID=69
 
@@ -36,10 +37,10 @@ case $CURRENT in
         ;;
 esac
 
-# Set the new threshold
-echo $NEXT | sudo tee "$KERNEL_THRESHOLD_FILE" > /dev/null
 # Save new threshold to local file
 echo $NEXT > "$MY_THRESHOLD_FILE"
+# Set the new threshold
+echo $NEXT | sudo tee "$KERNEL_THRESHOLD_FILE" > /dev/null
 
 if [ $? -eq 0 ]; then
     # Success - show notification with appropriate icon
