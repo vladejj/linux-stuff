@@ -1,13 +1,15 @@
 #!/bin/bash
 # Cycles battery charge threshold between 60 > 80 > 100 > 60
 
-# REQUIRES: sudo privileges to write to /sys/class/power_supply/BAT0/charge_control_end_threshold
-# Setup: Add to /etc/sudoers with visudo:
-# yourusername ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/power_supply/BAT0/charge_control_end_threshold
-# Create service that reads the file and sets remembered value
-# Must have ownership and only read perms for .bat-limit in /etc
+# REQUIRES:
+#     sudo privileges to write to /sys/class/power_supply/BAT0/charge_control_end_threshold
+# SETUP:
+#     Add to /etc/sudoers with visudo:
+#         yourusername ALL=(ALL) NOPASSWD: /usr/bin/tee /sys/class/power_supply/BAT0/charge_control_end_threshold
+#     Create service that reads the file and sets remembered value
+#     Set 644 perms for /var/lib/battery-limit/threshold
 
-MY_THRESHOLD_FILE="/etc/bat-limit"
+MY_THRESHOLD_FILE="/var/lib/battery-limit/threshold"
 KERNEL_THRESHOLD_FILE="/sys/class/power_supply/BAT0/charge_control_end_threshold"
 NOTIF_ID=69
 
