@@ -35,13 +35,8 @@ echo "User: $VPN_USER"
 echo "Config: $VPN_CONFIG"
 echo "---"
 
-# Make secure tmp file and import credentials
-TEMP_CREDS=$(mktemp)
-echo -e "$VPN_USER\n$VPN_PASSWORD" > "$TEMP_CREDS"
-# Connect with the tmp file
-sudo openvpn --config "$VPN_CONFIG" --auth-user-pass "$TEMP_CREDS"
-# Cleanup the file
-rm -f "$TEMP_CREDS"
+# Pass credentials via stdin
+echo -e "$VPN_USER\n$VPN_PASSWORD" | sudo openvpn --config "$VPN_CONFIG" --auth-user-pass /dev/stdin
 
 echo ""
 echo "VPN connection terminated. Press any key to close..."
