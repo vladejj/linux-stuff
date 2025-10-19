@@ -1,5 +1,5 @@
 [Unit]
-Description=Set Battery Charge Threshold
+Description=Set Remembered Battery Charge Threshold From File
 After=multi-user.target
 
 [Service]
