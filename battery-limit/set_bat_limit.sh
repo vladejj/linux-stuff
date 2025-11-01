@@ -12,6 +12,7 @@
 #    mkdir -p ~/.config/battery-limit && echo "60" > ~/.config/battery-limit/threshold
 # 3. Verify it was created and contains the value
 #    cat ~/.config/battery-limit/threshold
+# 4. Allow execution of this script
 #
 # [Optional, but highly recommended]
 # 2. Create systemd service to restore threshold on boot:
