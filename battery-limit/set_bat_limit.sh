@@ -8,8 +8,12 @@
 # Setup Required:
 # 1. Add sudo permission (run: sudo visudo) and add at the end of file:
 #    YOUR_USERNAME ALL=NOPASSWD: /usr/bin/tee /sys/class/power_supply/BAT0/charge_control_end_threshold
+# 2. Create the directories, file, and add content in one go
+#    mkdir -p ~/.config/battery-limit && echo "60" > ~/.config/battery-limit/threshold
+# 3. Verify it was created and contains the value
+#    cat ~/.config/battery-limit/threshold
 #
-# [Optional]
+# [Optional, but highly recommended]
 # 2. Create systemd service to restore threshold on boot:
 #    sudo nano /etc/systemd/system/battery-limit.service
 #    [Paste contents of service file "battery-limit.service" from repo]
@@ -20,9 +24,6 @@ set -euo pipefail  # Exit on errors and undefined variables
 
 MY_THRESHOLD_FILE="$HOME/.config/battery-limit/threshold"
 KERNEL_THRESHOLD_FILE="/sys/class/power_supply/BAT0/charge_control_end_threshold"
-
-# Create directory if it doesn't exist
-mkdir -p "$(dirname "$MY_THRESHOLD_FILE")" 2>/dev/null || true
 
 # Check if kernel threshold file exists
 if [ ! -f "$KERNEL_THRESHOLD_FILE" ]; then
