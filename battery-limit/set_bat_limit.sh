@@ -2,7 +2,7 @@
 # Battery Charge Threshold
 # 
 # Usage: 
-#   ./set_bat_limit.sh [threshold]  - Set specific threshold (1-100)
+#   ./set_bat_limit.sh [threshold]  - Set specific threshold (50-100)
 #   ./set_bat_limit.sh              - Cycle through 60 → 80 → 100 → 60
 #
 # Setup Required:
